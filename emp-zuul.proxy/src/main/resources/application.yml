@@ -1,0 +1,27 @@
+server:
+  port: 9080
+ 
+spring:
+  application:
+    name: zuul-routing-pattern-proxy 
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+zuul:
+  prefix: /api
+  routes:
+    get-by-host:
+      path: /byhosts/**
+      url: http://localhost:/8090
+    get-by-service:
+      path: /service/**
+      url: emp-rest-service
+    get-by-client:
+      path: /client/**
+      url: load-balancer
+    ext-redirect:
+      path: /redirect/**
+      url: http://yahoo.com
